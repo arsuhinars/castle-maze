@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CreatureSettings", menuName = "Creature/Settings")]
+[CreateAssetMenu(fileName = "CreatureSettings", menuName = "Game/Creature Settings")]
 public class CreatureSettings : ScriptableObject
 {
     public float gravityScale = 1.0f;
