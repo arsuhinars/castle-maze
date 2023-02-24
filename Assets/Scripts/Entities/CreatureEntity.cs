@@ -11,8 +11,8 @@ public class CreatureEntity : MonoBehaviour
     }
 
     /// <summary>
-    /// Текущий вектор движения существа.
-    /// Длина, равная 1, означает максимальную скорость сущности.
+    /// РўРµРєСѓС‰РёР№ РІРµРєС‚РѕСЂ РґРІРёР¶РµРЅРёСЏ СЃСѓС‰РµСЃС‚РІР°.
+    /// Р”Р»РёРЅР°, СЂР°РІРЅР°СЏ 1, РѕР·РЅР°С‡Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ СЃРєРѕСЂРѕСЃС‚СЊ СЃСѓС‰РЅРѕСЃС‚Рё.
     /// </summary>
     public Vector2 MoveVector
     {
@@ -52,14 +52,14 @@ public class CreatureEntity : MonoBehaviour
         m_charController = GetComponent<CharacterController>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         float moveAccel = m_charController.isGrounded ?
             m_settings.moveAcceleration :
             m_settings.moveAccelerationInAir;
 
-        // Расчитываем горизонтальную скорость через ускорение
-        // и сопротивление движению
+        // Р Р°СЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ СЃРєРѕСЂРѕСЃС‚СЊ С‡РµСЂРµР· СѓСЃРєРѕСЂРµРЅРёРµ
+        // Рё СЃРѕРїСЂРѕС‚РёРІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЋ
         var horVel = new Vector2(m_velocity.x, m_velocity.z);
         horVel += moveAccel * Time.deltaTime * MoveVector;
         horVel -= m_settings.horizontalDrag * Time.deltaTime * horVel;
@@ -67,32 +67,28 @@ public class CreatureEntity : MonoBehaviour
         m_velocity.x = horVel.x;
         m_velocity.z = horVel.y;
 
-        // Учитываем ускорение свободного падения и сопротивление движению
+        // РЈС‡РёС‚С‹РІР°РµРј СѓСЃРєРѕСЂРµРЅРёРµ СЃРІРѕР±РѕРґРЅРѕРіРѕ РїР°РґРµРЅРёСЏ Рё СЃРѕРїСЂРѕС‚РёРІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЋ
         m_velocity.y += Physics.gravity.y * Time.deltaTime;
         m_velocity.y -= m_settings.verticalDrag * Time.deltaTime;
 
-        // Применяем скорость к контроллеру
+        // РџСЂРёРјРµРЅСЏРµРј СЃРєРѕСЂРѕСЃС‚СЊ Рє РєРѕРЅС‚СЂРѕР»Р»РµСЂСѓ
         m_charController.Move(m_velocity * Time.deltaTime);
 
 
-        // Далее обрабатываем вращение только если сущность находится на земле
-        //if (!m_charController.isGrounded)
-        //    return;
-
         float moveAngle = m_lastMoveAngle;
 
-        // Если вектор движения не близок к нулю и игрок находится на земле
+        // Р•СЃР»Рё РІРµРєС‚РѕСЂ РґРІРёР¶РµРЅРёСЏ РЅРµ Р±Р»РёР·РѕРє Рє РЅСѓР»СЋ Рё РёРіСЂРѕРє РЅР°С…РѕРґРёС‚СЃСЏ РЅР° Р·РµРјР»Рµ
         if (m_charController.isGrounded && (
             !Mathf.Approximately(m_moveVector.x, 0.0f) ||
             !Mathf.Approximately(m_moveVector.y, 0.0f))
             )
         {
-            // Находим текущий угол направления движения
+            // РќР°С…РѕРґРёРј С‚РµРєСѓС‰РёР№ СѓРіРѕР» РЅР°РїСЂР°РІР»РµРЅРёСЏ РґРІРёР¶РµРЅРёСЏ
             moveAngle = Mathf.Atan2(m_moveVector.x, m_moveVector.y) * Mathf.Rad2Deg;
             m_lastMoveAngle = moveAngle;
         }
 
-        // Находим новый угол вращения
+        // РќР°С…РѕРґРёРј РЅРѕРІС‹Р№ СѓРіРѕР» РІСЂР°С‰РµРЅРёСЏ
         m_currRot = Mathf.SmoothDampAngle(
             m_currRot,
             moveAngle,
@@ -101,7 +97,7 @@ public class CreatureEntity : MonoBehaviour
             m_settings.rotationMaxSpeed
         );
 
-        // Применяем вращение
+        // РџСЂРёРјРµРЅСЏРµРј РІСЂР°С‰РµРЅРёРµ
         var rotation = Quaternion.Euler(0.0f, m_currRot, 0.0f);
         m_charController.transform.rotation = rotation;
     }
@@ -111,8 +107,10 @@ public class CreatureEntity : MonoBehaviour
         var center = m_charController.bounds.center;
         float bottom = m_charController.bounds.min.y + m_charController.radius;
 
+        // Р•СЃР»Рё СЃСѓС‰РЅРѕСЃС‚СЊ РєР°СЃР°РµС‚СЃСЏ РїРѕР»Р°
         if (m_charController.isGrounded && hit.point.y <= bottom)
         {
+            // Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С‚РѕС‡РєРё РєР°СЃР°РЅРёСЏ РґРѕ С†РµРЅС‚СЂР°
             float sqrDist = (
                 new Vector2(hit.point.x, hit.point.z) -
                 new Vector2(center.x, center.z)
@@ -120,7 +118,7 @@ public class CreatureEntity : MonoBehaviour
 
             if (sqrDist > (m_settings.slideThreshold * m_settings.slideThreshold))
             {
-                // Заставляем сущность "соскальзывать" с краев
+                // Р—Р°СЃС‚Р°РІР»СЏРµРј СЃСѓС‰РЅРѕСЃС‚СЊ "СЃРѕСЃРєР°Р»СЊР·С‹РІР°С‚СЊ" СЃ РєСЂР°РµРІ
                 var delta = new Vector3(
                     center.x - hit.point.x,
                     0.0f,
