@@ -9,6 +9,8 @@ public class CreatureEntity : MonoBehaviour
         set => m_settings = value;
     }
 
+    public CharacterController CharacterController => m_charController;
+
     /// <summary>
     /// Текущий вектор движения существа.
     /// Длина, равная 1, означает максимальную скорость сущности.
@@ -52,6 +54,15 @@ public class CreatureEntity : MonoBehaviour
 
     public void Spawn()
     {
+        if (m_isAlive)
+            return;
+
+        m_moveVector = Vector2.zero;
+        m_velocity = Vector3.zero;
+        m_lastMoveAngle = 0f;
+        m_currRot = transform.rotation.eulerAngles.y;
+        m_rotVel = 0f;
+        m_jumpFlag = false;
         m_isAlive = true;
         gameObject.SetActive(true);
         OnSpawned();
@@ -80,6 +91,11 @@ public class CreatureEntity : MonoBehaviour
     private void Awake()
     {
         m_charController = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        Spawn();
     }
 
     protected virtual void Update()
