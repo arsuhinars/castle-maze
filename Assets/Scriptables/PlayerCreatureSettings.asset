@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95f444619467b7543b16e9fdca203026, type: 3}
-  m_Name: PlayerSettings
+  m_Name: PlayerCreatureSettings
   m_EditorClassIdentifier: 
-  gravityScale: 1
+  gravityScale: 3
   moveAcceleration: 27
   moveAccelerationInAir: 10
-  jumpSpeed: 6
+  jumpSpeed: 9
   horizontalDrag: 9
-  verticalDrag: 7
+  verticalDrag: 1
   rotationSmoothTime: 0.05
   rotationMaxSpeed: 540
   slideThreshold: 0.1
   slideScale: 0.1
+  rigidbodyImpactScale: 3
