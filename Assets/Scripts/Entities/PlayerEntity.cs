@@ -29,11 +29,14 @@ public class PlayerEntity : CreatureEntity
 
         // Двигаем камеру к игроку
         var camController = GameManager.Instance.CameraController;
-        var camTarget = new Vector3(
-            transform.position.x,
-            camController.TargetPoint.y,
-            transform.position.z
-        );
+        var camTarget = transform.position;
+
+        // Если игрок в полете, то не двигаем камеру по вертикали
+        if (!CharacterController.isGrounded)
+        {
+            camTarget.y = camController.TargetPoint.y;
+        }
+
         camController.TargetPoint = camTarget;
     }
 
