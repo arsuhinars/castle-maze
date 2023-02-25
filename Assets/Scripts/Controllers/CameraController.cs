@@ -51,13 +51,13 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        var cameraPosition = m_targetPoint - 
+        var camPos = m_targetPoint - 
             m_normalizedLookDir * m_settings.lookDistance;
 
         // Плавно перемещаем камеру к заданной точке
         m_targetCamera.transform.position = Vector3.SmoothDamp(
             m_targetCamera.transform.position,
-            cameraPosition,
+            camPos,
             ref m_velocity,
             m_settings.moveSmoothTime,
             m_settings.moveMaxSpeed
