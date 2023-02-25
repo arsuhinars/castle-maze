@@ -1,5 +1,4 @@
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 [RequireComponent(typeof(CharacterController))]
 public class CreatureEntity : MonoBehaviour
@@ -40,6 +39,7 @@ public class CreatureEntity : MonoBehaviour
     private float m_lastMoveAngle = 0.0f;
     private float m_currRot = 0.0f;
     private float m_rotVel = 0.0f;
+    private bool m_jumpFlag = false;
     private bool m_isAlive = true;
 
     public void Jump()
@@ -47,7 +47,7 @@ public class CreatureEntity : MonoBehaviour
         if (!m_charController.isGrounded)
             return;
 
-        m_velocity.y = m_settings.jumpSpeed;
+        m_jumpFlag = true;
     }
 
     public void Spawn()
@@ -95,16 +95,31 @@ public class CreatureEntity : MonoBehaviour
 
         // Расчитываем горизонтальную скорость через ускорение
         // и сопротивление движению
-        var horVel = new Vector2(m_velocity.x, m_velocity.z);
+        var horVel = new Vector2(
+            m_velocity.x,
+            m_velocity.z
+        );
         horVel += moveAccel * Time.deltaTime * MoveVector;
         horVel -= m_settings.horizontalDrag * Time.deltaTime * horVel;
 
         m_velocity.x = horVel.x;
         m_velocity.z = horVel.y;
 
+        // Учитываем флаг прыжка
+        if (m_jumpFlag)
+        {
+            m_jumpFlag = false;
+            m_velocity.y = m_settings.jumpSpeed;
+        }
+        // Если игрок на земле
+        if (!m_charController.isGrounded)
+        {
+            m_velocity.y += Physics.gravity.y * m_settings.gravityScale * Time.deltaTime;
+        }
+
         // Учитываем ускорение свободного падения и сопротивление движению
-        m_velocity.y += Physics.gravity.y * Time.deltaTime;
-        m_velocity.y -= m_settings.verticalDrag * Time.deltaTime;
+        
+        m_velocity.y -= m_settings.verticalDrag * m_velocity.y * Time.deltaTime;
 
         // Применяем скорость к контроллеру
         m_charController.Move(m_velocity * Time.deltaTime);
@@ -167,6 +182,25 @@ public class CreatureEntity : MonoBehaviour
                 delta *= m_settings.slideScale * Time.timeScale;
                 m_velocity += delta;
             }
+
+            return;
+        }
+
+        // Если это физический объект
+        if (hit.rigidbody != null)
+        {
+            var dir = hit.point - center;
+            dir.y = 0.0f;
+
+            var impact = Vector3.Project(
+                new Vector3(MoveVector.x, 0.0f, MoveVector.y),
+                dir
+            );
+
+            // Обрабатываем воздействие на этот объект
+            hit.rigidbody.AddForce(
+                impact * m_settings.rigidbodyImpactScale
+            );
         }
     }
 }
