@@ -11,48 +11,57 @@ public class GameManager : MonoBehaviour
     public event Action OnPause;
     public event Action OnResume;
 
-    public bool IsStarted
-    {
-        get => m_isStarted;
-        set
-        {
-            if (!m_isStarted && value)
-            {
-                HandleStart();
-            }
-            else if (m_isStarted && !value)
-            {
-                HandleEnd();
-            }
-
-            m_isStarted = value;
-        }
-    }
-    public bool IsPaused
-    {
-        get => m_isPaused;
-        set
-        {
-            if (!m_isPaused && value)
-            {
-                HandlePause();
-            }
-            else if (m_isPaused && !value)
-            {
-                HandleResume();
-            }
-
-            m_isPaused = value;
-        }
-    }
+    public bool IsStarted { get; private set; }
+    public bool IsPaused { get; private set; }
 
     public PlayerEntity PlayerEntity => m_playerEntity;
     public CameraController CameraController => m_cameraController;
 
     private PlayerEntity m_playerEntity = null;
     private CameraController m_cameraController = null;
-    private bool m_isStarted = false;
-    private bool m_isPaused = false;
+
+    public void StartGame()
+    {
+        ResumeGame();
+        IsStarted = true;
+        OnStart?.Invoke();
+    }
+
+    public void EndGame()
+    {
+        ResumeGame();
+        IsStarted = false;
+        OnEnd?.Invoke();
+    }
+
+    public void PauseGame()
+    {
+        if (!IsStarted || IsPaused)
+            return;
+
+        IsPaused = true;
+        Time.timeScale = 0f;
+        OnPause?.Invoke();
+    }
+
+    public void ResumeGame()
+    {
+        if (!IsStarted || !IsPaused)
+            return;
+
+        IsPaused = false;
+        Time.timeScale = 1f;
+        OnResume?.Invoke();
+    }
+
+    /// <summary>
+    /// Метод для выхода из игры. Должен возвращать в главное меню либо,
+    /// закрывать игру.
+    /// </summary>
+    public void LeaveGame()
+    {
+        Application.Quit();
+    }
 
     private void Awake()
     {
@@ -72,30 +81,6 @@ public class GameManager : MonoBehaviour
         // объекты успели подписаться на события
         yield return null;
 
-        m_isStarted = true;
-        HandleStart();
-    }
-
-    private void HandleStart()
-    {
-        IsPaused = false;
-        OnStart?.Invoke();
-    }
-
-    private void HandleEnd()
-    {
-        OnEnd?.Invoke();
-    }
-
-    private void HandlePause()
-    {
-        Time.timeScale = 0.0f;
-        OnPause?.Invoke();
-    }
-
-    private void HandleResume()
-    {
-        Time.timeScale = 1.0f;
-        OnResume?.Invoke();
+        StartGame();
     }
 }

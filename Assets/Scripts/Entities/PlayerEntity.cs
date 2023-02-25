@@ -42,6 +42,6 @@ public class PlayerEntity : CreatureEntity
 
     protected override void OnKilled()
     {
-        GameManager.Instance.IsStarted = false;
+        GameManager.Instance.EndGame();
     }
 }
