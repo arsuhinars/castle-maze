@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
 
+    public event Action OnReload;
     public event Action OnStart;
     public event Action OnEnd;
     public event Action OnPause;
@@ -55,6 +56,16 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Метод полной перезагрузки игры. При этом вызывается событие <c>OnReload</c>,
+    /// при котором все компоненты должны сбросить свое состояние до начального.
+    /// </summary>
+    public void ReloadGame()
+    {
+        OnReload?.Invoke();
+        StartGame();
+    }
+
+    /// <summary>
     /// Метод для выхода из игры. Должен возвращать в главное меню либо,
     /// закрывать игру.
     /// </summary>
@@ -81,6 +92,6 @@ public class GameManager : MonoBehaviour
         // объекты успели подписаться на события
         yield return null;
 
-        StartGame();
+        ReloadGame();
     }
 }
