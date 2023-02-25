@@ -13,14 +13,14 @@ public abstract class UIView : MonoBehaviour
     private CanvasGroup m_canvasGroup;
     private bool m_isShowed = false;
 
-    public void Show()
+    public virtual void Show()
     {
         m_canvas.enabled = true;
         m_canvasGroup.blocksRaycasts = true;
         m_isShowed = true;
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         m_canvas.enabled = false;
         m_canvasGroup.blocksRaycasts = false;
