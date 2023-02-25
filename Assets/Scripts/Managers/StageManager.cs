@@ -46,6 +46,13 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.OnReload += OnGameReload;
+    }
+
+    private void OnGameReload()
+    {
+        m_currStageIndex = 0;
+
         foreach (var stage in m_stages)
         {
             stage.IsActive = false;
