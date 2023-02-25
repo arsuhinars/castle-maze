@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CreatureSettings", menuName = "Game/Creature Settings")]
 public class CreatureSettings : ScriptableObject
 {
+    public bool isInvulnerable = false;
+    public bool disableOnDead = true;
+
+    [Header("Moving")]
     public float gravityScale = 1.0f;
     public float moveAcceleration = 1.0f;
     public float moveAccelerationInAir = 1.0f;
@@ -13,4 +17,5 @@ public class CreatureSettings : ScriptableObject
     public float rotationMaxSpeed = 1.0f;
     public float slideThreshold = 1.0f;
     public float slideScale = 1.0f;
+    public float rigidbodyImpactScale = 1.0f;
 }
