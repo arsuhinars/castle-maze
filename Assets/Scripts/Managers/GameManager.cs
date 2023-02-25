@@ -12,17 +12,29 @@ public class GameManager : MonoBehaviour
     public event Action OnPause;
     public event Action OnResume;
 
+    public GameSettings Settings => m_settings;
     public bool IsStarted { get; private set; }
     public bool IsPaused { get; private set; }
+    public int PlayerLives { get; private set; }
 
     public PlayerEntity PlayerEntity => m_playerEntity;
     public CameraController CameraController => m_cameraController;
 
+    [SerializeField] private GameSettings m_settings;
     private PlayerEntity m_playerEntity = null;
     private CameraController m_cameraController = null;
 
+    /// <summary>
+    /// Метод запуска игры. Если <c>PlayerLives</c> равен или меньше нуля,
+    /// то ничего не делает.
+    /// </summary>
     public void StartGame()
     {
+        if (PlayerLives <= 0)
+            return;
+
+        PlayerLives--;
+
         ResumeGame();
         IsStarted = true;
         OnStart?.Invoke();
@@ -30,6 +42,9 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        if (!IsStarted)
+            return;
+
         ResumeGame();
         IsStarted = false;
         OnEnd?.Invoke();
@@ -61,6 +76,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReloadGame()
     {
+        PlayerLives = m_settings.initialLivesCount + 1;
         OnReload?.Invoke();
         StartGame();
     }
