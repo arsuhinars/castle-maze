@@ -31,6 +31,8 @@ public class CreatureEntity : MonoBehaviour
         }
     }
 
+    public bool IsAlive => m_isAlive;
+
     [SerializeField] private CreatureSettings m_settings;
     private CharacterController m_charController;
     private Vector2 m_moveVector = Vector2.zero;
@@ -38,6 +40,7 @@ public class CreatureEntity : MonoBehaviour
     private float m_lastMoveAngle = 0.0f;
     private float m_currRot = 0.0f;
     private float m_rotVel = 0.0f;
+    private bool m_isAlive = true;
 
     public void Jump()
     {
@@ -47,6 +50,33 @@ public class CreatureEntity : MonoBehaviour
         m_velocity.y = m_settings.jumpSpeed;
     }
 
+    public void Spawn()
+    {
+        m_isAlive = true;
+        gameObject.SetActive(true);
+        OnSpawned();
+    }
+
+    public void Kill()
+    {
+        if (m_settings.isInvulnerable || !m_isAlive)
+        {
+            return;
+        }
+
+        m_isAlive = false;
+        OnKilled();
+
+        if (m_settings.disableOnDead)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    protected virtual void OnSpawned() { }
+
+    protected virtual void OnKilled() { }
+
     private void Awake()
     {
         m_charController = GetComponent<CharacterController>();
@@ -54,6 +84,11 @@ public class CreatureEntity : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!m_isAlive)
+        {
+            return;
+        }
+
         float moveAccel = m_charController.isGrounded ?
             m_settings.moveAcceleration :
             m_settings.moveAccelerationInAir;
@@ -104,6 +139,11 @@ public class CreatureEntity : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        if (!m_isAlive)
+        {
+            return;
+        }
+
         var center = m_charController.bounds.center;
         float bottom = m_charController.bounds.min.y + m_charController.radius;
 
