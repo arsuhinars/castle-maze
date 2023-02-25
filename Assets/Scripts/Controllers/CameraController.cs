@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
     /// </summary>
     public void MoveInstantly()
     {
-        m_targetCamera.transform.position = m_targetPoint;
+        m_targetCamera.transform.position = CalculateCameraPosition();
         m_velocity = Vector3.zero;
     }
     
@@ -51,13 +51,10 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        var camPos = m_targetPoint - 
-            m_normalizedLookDir * m_settings.lookDistance;
-
         // Плавно перемещаем камеру к заданной точке
         m_targetCamera.transform.position = Vector3.SmoothDamp(
             m_targetCamera.transform.position,
-            camPos,
+            CalculateCameraPosition(),
             ref m_velocity,
             m_settings.moveSmoothTime,
             m_settings.moveMaxSpeed
@@ -71,5 +68,10 @@ public class CameraController : MonoBehaviour
         m_targetCamera.transform.rotation = Quaternion.LookRotation(
             m_normalizedLookDir
         );
+    }
+
+    private Vector3 CalculateCameraPosition()
+    {
+        return m_targetPoint - m_normalizedLookDir * m_settings.lookDistance;
     }
 }
