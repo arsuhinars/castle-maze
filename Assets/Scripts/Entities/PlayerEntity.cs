@@ -9,7 +9,18 @@ public class PlayerEntity : CreatureEntity
 
     private void OnGameStart()
     {
-        GameManager.Instance.CameraController.TargetPoint = transform.position;
+        // Перемещаем игрока к чекпоинту
+        var currCheckpoint = StageManager.Instance.CurrentStage.CurrentCheckpoint;
+
+        transform.position = currCheckpoint.PlayerSpawn.position;
+
+        // Перемещаем камеру к игроку
+        var camController = GameManager.Instance.CameraController;
+        camController.TargetPoint = transform.position;
+        camController.MoveInstantly();
+
+        // Спавним игрока
+        Spawn();
     }
 
     protected override void Update()
@@ -24,5 +35,10 @@ public class PlayerEntity : CreatureEntity
             transform.position.z
         );
         camController.TargetPoint = camTarget;
+    }
+
+    protected override void OnKilled()
+    {
+        GameManager.Instance.IsStarted = false;
     }
 }
