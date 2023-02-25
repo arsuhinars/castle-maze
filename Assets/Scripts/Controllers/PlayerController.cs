@@ -23,4 +23,20 @@ public class PlayerController : MonoBehaviour
             m_playerEntity.Jump();
         }
     }
+
+    public void OnPauseInputAction(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            var gameManager = GameManager.Instance;
+            if (gameManager.IsPaused)
+            {
+                gameManager.ResumeGame();
+            }
+            else
+            {
+                gameManager.PauseGame();
+            }
+        }
+    }
 }
