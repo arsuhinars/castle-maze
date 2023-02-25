@@ -42,7 +42,13 @@ public class StageController : MonoBehaviour
             m_checkpoints[i].OnPickup += () => HandleCheckpointPickup(index);
         }
 
+        GameManager.Instance.OnReload += OnGameReload;
         GameManager.Instance.OnStart += OnGameStart;
+    }
+
+    private void OnGameReload()
+    {
+        m_checkpointIndex = 0;
     }
 
     private void OnGameStart()
