@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class PlayerEntity : CreatureEntity
 {
+    /// <summary>
+    /// Активная способность игрока. Если равна <c>null</c>, то
+    /// никакая способность в данный момент не активна.
+    /// </summary>
+    public PlayerAbility ActiveAbility
+    {
+        get => m_activeAbility;
+        set => m_activeAbility = value;
+    }
+
+    private PlayerAbility m_activeAbility = null;
+
     private void Start()
     {
         GameManager.Instance.OnStart += OnGameStart;
