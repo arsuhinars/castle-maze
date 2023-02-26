@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,10 +21,12 @@ public class GameManager : MonoBehaviour
 
     public PlayerEntity PlayerEntity => m_playerEntity;
     public CameraController CameraController => m_cameraController;
+    public GameUIController GameUIController => m_gameUIGontroller;
 
     [SerializeField] private GameSettings m_settings;
     private PlayerEntity m_playerEntity = null;
     private CameraController m_cameraController = null;
+    private GameUIController m_gameUIGontroller = null;
     private Dictionary<string, PlayerAbility> m_abilities;
 
     /// <summary>
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour
 
         m_playerEntity = FindObjectOfType<PlayerEntity>();
         m_cameraController = FindObjectOfType<CameraController>();
+        m_gameUIGontroller = FindObjectOfType<GameUIController>();
     }
 
     private IEnumerator Start()
