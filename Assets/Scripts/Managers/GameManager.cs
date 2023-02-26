@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public bool IsStarted { get; private set; }
     public bool IsPaused { get; private set; }
     public int PlayerLives { get; private set; }
+    public PlayerAbility[] AvailableAbilities => m_settings.playerAbilities;
 
     public PlayerEntity PlayerEntity => m_playerEntity;
     public CameraController CameraController => m_cameraController;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameSettings m_settings;
     private PlayerEntity m_playerEntity = null;
     private CameraController m_cameraController = null;
+    private Dictionary<string, PlayerAbility> m_abilities;
 
     /// <summary>
     /// Метод запуска игры. Если <c>PlayerLives</c> равен или меньше нуля,
@@ -90,6 +92,8 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public PlayerAbility GetAbilityByName(string name) => m_abilities[name];
+
     private void Awake()
     {
         if (Instance != null)
@@ -104,6 +108,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
+        // TODO добавить подгрузку способностей вместо хардкодинга
+        m_abilities = new();
+        foreach (var ability in m_settings.playerAbilities)
+        {
+            m_abilities[ability.name] = ability;
+        }
+
         // Пропускаем один кадр для того, чтобы все
         // объекты успели подписаться на события
         yield return null;
