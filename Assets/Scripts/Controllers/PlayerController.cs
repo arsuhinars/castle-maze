@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerEntity))]
 public class PlayerController : MonoBehaviour
 {
     private PlayerEntity m_playerEntity;
