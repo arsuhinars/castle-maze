@@ -5,9 +5,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; } = null;
 
-    [SerializeField] private UIView[] m_views;
-
-    private UIView m_activeView;
+    private UIView m_activeView = null;
     private Dictionary<string, UIView> m_viewsByName;
 
     public void ToggleView(string name)
@@ -21,6 +19,8 @@ public class UIManager : MonoBehaviour
         m_activeView.Show();
     }
 
+    public UIView GetView(string name) => m_viewsByName[name];
+
     private void Awake()
     {
         if (Instance != null)
@@ -28,12 +28,9 @@ public class UIManager : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
-    }
 
-    private void Start()
-    {
         m_viewsByName = new();
-        foreach (var view in m_views)
+        foreach (var view in GetComponentsInChildren<UIView>(true))
         {
             view.gameObject.SetActive(true);
             view.Hide();
