@@ -12,46 +12,52 @@ public class InGameView : UIView
     [SerializeField] private AbilityIcon m_abilityIconPrefab;
 
     private List<AbilityIcon> m_abilitiesIcons = new();
+    private PlayerEntity m_player;
 
     private void Start()
     {
-        GameManager.Instance.OnStart += OnGameStart;
+        m_player = GameManager.Instance.PlayerEntity;
+        m_player.OnAbilitiesChange += UpdateAbilities;
     }
 
-    private void OnGameStart()
+    private void UpdateAbilities()
     {
-        // Очищаем иконки
+        // Очищаем старые иконки
         foreach (var abilityIcon in m_abilitiesIcons)
         {
             Destroy(abilityIcon.gameObject);
         }
         m_abilitiesIcons.Clear();
 
-        // Добавляем иконки каждой способности
-        int index = 0;
-        foreach (var ability in GameManager.Instance.AvailableAbilities)
+        // Временно активируем контейнер способностей
+        m_abilitiesContainer.gameObject.SetActive(true);
+
+        // Добавляем иконки для каждой способности
+        int i = 0;
+        foreach (var abilityName in m_player.AbilitiesNames)
         {
-            var currAbility = ability;
-            int currIndex = index;
+            int index = i;
+            var currName = abilityName;
+            var ability = GameManager.Instance.GetAbilityByName(abilityName);
 
             var abilityIcon = Instantiate(
                 m_abilityIconPrefab, m_abilitiesContainer
             );
             abilityIcon.IconImage.sprite = ability.icon;
             abilityIcon.Button.onClick.AddListener(
-                () => OnAbilitySelect(currIndex, currAbility)
+                () => OnAbilitySelect(index, currName)
             );
 
             m_abilitiesIcons.Add(abilityIcon);
 
-            index++;
+            i++;
         }
 
         // Если доступных способностей нет, то скрываем список
-        m_abilitiesContainer.gameObject.SetActive(index > 0);
+        m_abilitiesContainer.gameObject.SetActive(i > 0);
     }
 
-    private void OnAbilitySelect(int index, PlayerAbility ability)
+    private void OnAbilitySelect(int index, string name)
     {
         foreach (var abilityIcon in m_abilitiesIcons)
         {
@@ -60,6 +66,6 @@ public class InGameView : UIView
 
         m_abilitiesIcons[index].IsSelected = true;
 
-        GameManager.Instance.PlayerEntity.ActiveAbility = ability;
+        m_player.ActiveAbilityName = name;
     }
 }
