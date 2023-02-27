@@ -1,18 +1,53 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEntity : CreatureEntity
 {
+    public event Action OnAbilitiesChange;
+
     /// <summary>
-    /// Активная способность игрока. Если равна <c>null</c>, то
-    /// никакая способность в данный момент не активна.
+    /// Перечисление доступных для игрока способностей
     /// </summary>
-    public PlayerAbility ActiveAbility
+    public IEnumerable<string> AbilitiesNames => m_abilities;
+
+    /// <summary>
+    /// Название текущей активной способность игрока.
+    /// Если равна <c>null</c>, то никакая способность в данный
+    /// момент не активна.
+    /// </summary>
+    public string ActiveAbilityName
     {
-        get => m_activeAbility;
-        set => m_activeAbility = value;
+        get => m_activeAbility.name;
+        set
+        {
+            m_activeAbility = GameManager.Instance.GetAbilityByName(value);
+            OnAbilityChange();
+        }
     }
 
+
+    private HashSet<string> m_abilities = new();
     private PlayerAbility m_activeAbility = null;
+    private GameObject m_abilityObject;
+
+    public void AddAbility(string abilityName)
+    {
+        m_abilities.Add(abilityName);
+
+        // Обновляем список способностей
+        var abilities = new string[m_abilities.Count];
+        var enumerator = m_abilities.GetEnumerator();
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            enumerator.MoveNext();
+            abilities[i] = enumerator.Current;
+        }
+        // Сохраняем его
+        ProgressManager.Instance.Abilities = abilities;
+
+        OnAbilitiesChange?.Invoke();
+    }
 
     private void Start()
     {
@@ -21,6 +56,14 @@ public class PlayerEntity : CreatureEntity
 
     private void OnGameStart()
     {
+        // Обновляем список способностей
+        var abilities = ProgressManager.Instance.Abilities;
+        foreach (var ability in abilities)
+        {
+            m_abilities.Add(ability);
+        }
+        OnAbilitiesChange?.Invoke();
+
         // Перемещаем игрока к чекпоинту
         var currCheckpoint = StageManager.Instance.CurrentStage.CurrentCheckpoint;
 
@@ -55,5 +98,19 @@ public class PlayerEntity : CreatureEntity
     protected override void OnKilled()
     {
         GameManager.Instance.EndGame();
+    }
+
+    private void OnAbilityChange()
+    {
+        if (m_abilityObject != null)
+        {
+            Destroy(m_abilityObject);
+            m_abilityObject = null;
+        }
+
+        if (m_activeAbility == null)
+            return;
+
+        m_abilityObject = Instantiate(m_activeAbility.prefab, transform);
     }
 }
