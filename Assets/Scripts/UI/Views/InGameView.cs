@@ -5,9 +5,9 @@ public class InGameView : UIView
 {
     public override string ViewName => Defines.IN_GAME_VIEW;
 
-    public SavePointerZone SaveZone => m_saveZone;
+    public PointerCapturer PointerCapturer => m_pointerCapturer;
 
-    [SerializeField] private SavePointerZone m_saveZone;
+    [SerializeField] private PointerCapturer m_pointerCapturer;
     [SerializeField] private RectTransform m_abilitiesContainer;
     [SerializeField] private AbilityIcon m_abilityIconPrefab;
 

@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 9090921773052126020}
   - component: {fileID: 7900602275478810640}
   m_Layer: 5
-  m_Name: SavePointerZone
+  m_Name: PointerCapturer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7705304bd75eb6449b71307ac6dfebe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_saveZone: {fileID: 7900602275478810640}
+  m_pointerCapturer: {fileID: 0}
   m_abilitiesContainer: {fileID: 407635868927731409}
   m_abilityIconPrefab: {fileID: 8193343893474031385, guid: 9bb9df8d399ff9e4195309ffe984c733, type: 3}
 --- !u!1 &8017516960779617447

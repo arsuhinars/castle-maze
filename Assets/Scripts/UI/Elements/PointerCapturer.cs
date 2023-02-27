@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SavePointerZone : MonoBehaviour, 
+public class PointerCapturer : MonoBehaviour, 
     IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler,
     IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
