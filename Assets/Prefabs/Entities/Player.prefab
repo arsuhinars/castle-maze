@@ -68,7 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_settings: {fileID: 11400000, guid: 37e8bef932b13204d937ff7e615a6221, type: 2}
-  m_playerSettings: {fileID: 0}
 --- !u!114 &5452228137188997618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +249,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 537709265495524290, guid: dac768b3801d2d4429368d7d340795ec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a1143ee683302f4aa628c052723efc1, type: 2}
     - target: {fileID: 919132149155446097, guid: dac768b3801d2d4429368d7d340795ec, type: 3}
       propertyPath: m_Name
       value: Model

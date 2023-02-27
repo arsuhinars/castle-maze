@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f444619467b7543b16e9fdca203026, type: 3}
   m_Name: PlayerCreatureSettings
   m_EditorClassIdentifier: 
+  isInvulnerable: 0
+  disableOnDead: 1
   gravityScale: 3
   moveAcceleration: 27
   moveAccelerationInAir: 10
@@ -22,4 +24,4 @@ MonoBehaviour:
   rotationMaxSpeed: 540
   slideThreshold: 0.1
   slideScale: 0.1
-  rigidbodyImpactScale: 3
+  rigidbodyImpactScale: 6
