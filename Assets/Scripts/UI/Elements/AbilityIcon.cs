@@ -17,16 +17,10 @@ public class AbilityIcon : MonoBehaviour
         {
             if (!m_isSelected && value)
             {
-                var size = m_bottomLine.sizeDelta;
-                size.y = m_selectedLineHeight;
-                m_bottomLine.LeanSize(size, m_animationTime).setEaseInOutCubic();
                 LeanOutline(0f, m_selectedOutlineSize);
             }
             else if (m_isSelected && !value)
             {
-                var size = m_bottomLine.sizeDelta;
-                size.y = 0f;
-                m_bottomLine.LeanSize(size, m_animationTime).setEaseInOutCubic();
                 LeanOutline(m_selectedOutlineSize, 0f);
             }
 
@@ -35,7 +29,6 @@ public class AbilityIcon : MonoBehaviour
     }
 
     [SerializeField] private Image m_iconImage;
-    [SerializeField] private RectTransform m_bottomLine;
     [Header("Animation")]
     [SerializeField] private float m_selectedLineHeight;
     [SerializeField] private float m_selectedOutlineSize;

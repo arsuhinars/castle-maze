@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     public bool IsStarted { get; private set; }
     public bool IsPaused { get; private set; }
     public int PlayerLives { get; private set; }
-    public PlayerAbility[] AvailableAbilities => m_settings.playerAbilities;
 
     public PlayerEntity PlayerEntity => m_playerEntity;
     public CameraController CameraController => m_cameraController;
@@ -112,7 +111,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // TODO добавить подгрузку способностей вместо хардкодинга
         m_abilities = new();
         foreach (var ability in m_settings.playerAbilities)
         {
