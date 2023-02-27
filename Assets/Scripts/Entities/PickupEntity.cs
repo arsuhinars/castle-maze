@@ -25,6 +25,8 @@ public class PickupEntity : MonoBehaviour
             moveLean.setLoopPingPong();
             moveLean.setEaseInOutSine();
         }
+
+        GameManager.Instance.OnReload += OnGameReload;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,6 +41,14 @@ public class PickupEntity : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
+        }
+    }
+
+    private void OnGameReload()
+    {
+        if (m_settings.resetOnReload && m_settings.disableOnPickup)
+        {
+            gameObject.SetActive(true);
         }
     }
 
