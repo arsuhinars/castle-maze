@@ -32,6 +32,20 @@ public class CreatureEntity : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Угол на который направлен взгляд сущности.
+    /// Если равен <c>null</c>, то сущность смотрит по
+    /// направлению движения
+    /// </summary>
+    public float? TargetRotation
+    {
+        get => m_targetRot;
+        set
+        {
+            m_targetRot = value;
+        }
+    }
+
     public bool IsAlive => m_isAlive;
 
     [SerializeField] private CreatureSettings m_settings;
@@ -41,6 +55,7 @@ public class CreatureEntity : MonoBehaviour
     private float m_lastMoveAngle = 0.0f;
     private float m_currRot = 0.0f;
     private float m_rotVel = 0.0f;
+    private float? m_targetRot = null;
     private bool m_jumpFlag = false;
     private bool m_isAlive = true;
 
@@ -141,23 +156,27 @@ public class CreatureEntity : MonoBehaviour
         m_charController.Move(m_velocity * Time.deltaTime);
 
 
-        float moveAngle = m_lastMoveAngle;
+        float rotAngle = m_lastMoveAngle;
 
+        if (m_targetRot != null)
+        {
+            rotAngle = (float)m_targetRot;
+        }
         // Если вектор движения не близок к нулю и игрок находится на земле
-        if (m_charController.isGrounded && (
+        else if (m_charController.isGrounded && (
             !Mathf.Approximately(m_moveVector.x, 0.0f) ||
             !Mathf.Approximately(m_moveVector.y, 0.0f))
             )
         {
             // Находим текущий угол направления движения
-            moveAngle = Mathf.Atan2(m_moveVector.x, m_moveVector.y) * Mathf.Rad2Deg;
-            m_lastMoveAngle = moveAngle;
+            rotAngle = Mathf.Atan2(m_moveVector.x, m_moveVector.y) * Mathf.Rad2Deg;
+            m_lastMoveAngle = rotAngle;
         }
 
         // Находим новый угол вращения
         m_currRot = Mathf.SmoothDampAngle(
             m_currRot,
-            moveAngle,
+            rotAngle,
             ref m_rotVel,
             m_settings.rotationSmoothTime,
             m_settings.rotationMaxSpeed
