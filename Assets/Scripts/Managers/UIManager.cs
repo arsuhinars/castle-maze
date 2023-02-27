@@ -38,4 +38,10 @@ public class UIManager : MonoBehaviour
             m_viewsByName[view.ViewName] = view;
         }
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 }

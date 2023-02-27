@@ -109,6 +109,12 @@ public class GameManager : MonoBehaviour
         m_gameUIGontroller = FindObjectOfType<GameUIController>();
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     private IEnumerator Start()
     {
         m_abilities = new();

@@ -20,7 +20,10 @@ public class StatefulEntity : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.Instance.OnStart -= OnGameStart;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnStart -= OnGameStart;
+        }
     }
 
     private void OnGameStart()

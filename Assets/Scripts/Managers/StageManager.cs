@@ -44,6 +44,12 @@ public class StageManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     private void Start()
     {
         GameManager.Instance.OnReload += OnGameReload;
