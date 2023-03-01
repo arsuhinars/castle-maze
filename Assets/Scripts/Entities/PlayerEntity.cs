@@ -21,7 +21,10 @@ public class PlayerEntity : CreatureEntity
         get => m_activeAbility.name;
         set
         {
-            m_activeAbility = GameManager.Instance.GetAbilityByName(value);
+            m_activeAbility = 
+                value == null ?
+                null :
+                GameManager.Instance.GetAbilityByName(value);
             OnAbilityChange();
         }
     }
@@ -33,6 +36,9 @@ public class PlayerEntity : CreatureEntity
 
     public void AddAbility(string abilityName)
     {
+        if (m_abilities.Contains(abilityName))
+            return;
+
         m_abilities.Add(abilityName);
 
         // Обновляем список способностей
@@ -63,6 +69,9 @@ public class PlayerEntity : CreatureEntity
             m_abilities.Add(ability);
         }
         OnAbilitiesChange?.Invoke();
+
+        // Сбрасываем текущую способность
+        ActiveAbilityName = null;
 
         // Перемещаем игрока к чекпоинту
         var currCheckpoint = StageManager.Instance.CurrentStage.CurrentCheckpoint;
