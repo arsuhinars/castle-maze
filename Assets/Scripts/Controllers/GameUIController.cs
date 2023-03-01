@@ -17,9 +17,17 @@ public class GameUIController : MonoBehaviour
         UIManager.Instance.ToggleView(Defines.IN_GAME_VIEW);
     }
 
-    private void OnGameEnd()
+    private void OnGameEnd(GameManager.GameEndReason reason)
     {
-        UIManager.Instance.ToggleView(Defines.GAME_END_VIEW);
+        switch (reason)
+        {
+            case GameManager.GameEndReason.LevelEnds:
+                UIManager.Instance.ToggleView(Defines.LEVEL_END_VIEW);
+                break;
+            case GameManager.GameEndReason.PlayerDied:
+                UIManager.Instance.ToggleView(Defines.GAME_END_VIEW);
+                break;
+        }
     }
 
     private void OnGamePause()

@@ -7,9 +7,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
 
+    public enum GameEndReason
+    {
+        LevelEnds = 0,
+        PlayerDied = 1,
+    }
+
     public event Action OnReload;
     public event Action OnStart;
-    public event Action OnEnd;
+    public event Action<GameEndReason> OnEnd;
     public event Action OnPause;
     public event Action OnResume;
 
@@ -44,14 +50,14 @@ public class GameManager : MonoBehaviour
         OnStart?.Invoke();
     }
 
-    public void EndGame()
+    public void EndGame(GameEndReason reason)
     {
         if (!IsStarted)
             return;
 
         ResumeGame();
         IsStarted = false;
-        OnEnd?.Invoke();
+        OnEnd?.Invoke(reason);
     }
 
     public void PauseGame()

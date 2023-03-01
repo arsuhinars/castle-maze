@@ -97,7 +97,9 @@ public class PlayerEntity : CreatureEntity
 
     protected override void OnKilled()
     {
-        GameManager.Instance.EndGame();
+        GameManager.Instance.EndGame(
+            GameManager.GameEndReason.PlayerDied
+        );
     }
 
     private void OnAbilityChange()
