@@ -82,7 +82,9 @@ public class AbilityTelekinesis : MonoBehaviour
         var lookDir =
             m_pickedEntity.transform.position -
             m_player.transform.position;
-        m_player.TargetRotation = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
+        m_player.TargetRotation = Utils.RotationFromVector2(
+            new Vector2(lookDir.x, lookDir.z)
+        );
     }
 
     private void OnPointerClick()
