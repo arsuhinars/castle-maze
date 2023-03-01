@@ -35,7 +35,7 @@ public class GameEndView : UIView
         m_livesCountText.text = strBuilder.ToString();
 
         m_retryButton.interactable = GameManager.Instance.PlayerLives > 0;
-        m_leaveButton.gameObject.SetActive(!m_retryButton.interactable);
+        m_restartButton.gameObject.SetActive(!m_retryButton.interactable);
 
         base.Show();
     }
