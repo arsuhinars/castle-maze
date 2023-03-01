@@ -58,6 +58,13 @@ public class AbilityTelekinesis : MonoBehaviour
             m_pickedEntity == null)
             return;
 
+        // Если объект был отключен, то сбрасываем его
+        if (!m_pickedEntity.transform.gameObject.activeInHierarchy)
+        {
+            ReleasePickedEntity();
+            return;
+        }
+
         // Пускаем луч и ищем поверхность земли
         if (Physics.Raycast(
                 m_camera.ScreenPointToRay(m_pointerCapturer.PointerPos),
@@ -82,6 +89,7 @@ public class AbilityTelekinesis : MonoBehaviour
         var lookDir =
             m_pickedEntity.transform.position -
             m_player.transform.position;
+
         m_player.TargetRotation = Utils.RotationFromVector2(
             new Vector2(lookDir.x, lookDir.z)
         );
@@ -101,8 +109,16 @@ public class AbilityTelekinesis : MonoBehaviour
                 m_camera.ScreenPointToRay(m_pointerCapturer.PointerPos),
                 out var hitInfo,
                 Mathf.Infinity,
-                m_settings.pickableEntityMask
+                m_settings.pickableEntityMask | m_settings.ignoreMask
             ))
+        {
+            return;
+        }
+
+        // Проверяем, принадлежит объект нужному слою
+        // т.к. мы не должны учитывать объекты в ignoreMask
+        int layer = hitInfo.transform.gameObject.layer;
+        if ((m_settings.ignoreMask & (1 << layer)) != 0)
         {
             return;
         }
