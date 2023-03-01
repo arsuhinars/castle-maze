@@ -24,6 +24,6 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 501359e01ea4687449ae0d66cd1c87fa, type: 3}
   - name: Spirit
     displayName: "\u0414\u0443\u0445"
-    prefab: {fileID: 0}
+    prefab: {fileID: 6647833884704815195, guid: f8114c7816b7b14488b519433c7bf467, type: 3}
     icon: {fileID: 21300000, guid: 81711e00c5cc2b344bb6e59eaa18bedc, type: 3}
   levelsScenes: []

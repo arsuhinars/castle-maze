@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0db8e89e2046c44819485a3eb846f0, type: 3}
   m_Name: GateSettings
   m_EditorClassIdentifier: 
-  easeType: 5
-  moveOffset: {x: 0, y: 3, z: 0}
+  easeType: 1
+  moveOffset: {x: 0, y: 3.25, z: 0}
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 0
   animationTime: 1
   startDelay: 0
   endDelay: 0
-  usePingPong: 1
+  usePingPong: 0
   isLooped: 0
   playFromStart: 0
-  finishedFromStart: 1
+  finishedFromStart: 0

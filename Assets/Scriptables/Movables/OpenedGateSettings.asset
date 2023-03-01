@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f0db8e89e2046c44819485a3eb846f0, type: 3}
-  m_Name: Looped_Lift_Settings
+  m_Name: OpenedGateSettings
   m_EditorClassIdentifier: 
-  easeType: 1
+  easeType: 5
   moveOffset: {x: 0, y: 3, z: 0}
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 0
-  animationTime: 2
-  startDelay: 1
-  endDelay: 2
+  animationTime: 1
+  startDelay: 0
+  endDelay: 0
   usePingPong: 1
-  isLooped: 1
-  playFromStart: 1
-  finishedFromStart: 0
+  isLooped: 0
+  playFromStart: 0
+  finishedFromStart: 1
