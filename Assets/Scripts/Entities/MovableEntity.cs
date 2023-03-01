@@ -14,11 +14,13 @@ public class MovableEntity : MonoBehaviour
 
     public void PlayForward()
     {
+        m_leanState = false;
         StartCoroutine(StartLean(true));
     }
 
     public void PlayBackward()
     {
+        m_leanState = true;
         StartCoroutine(StartLean(false));
     }
 
@@ -107,7 +109,10 @@ public class MovableEntity : MonoBehaviour
 
     private void OnLeanComplete()
     {
-        if (m_settings.isLooped && isActiveAndEnabled)
+        if (!isActiveAndEnabled)
+            return;
+
+        if ((m_settings.usePingPong && !m_leanState) || m_settings.isLooped)
         {
             StartCoroutine(StartLean(
                 !m_settings.usePingPong || m_leanState
