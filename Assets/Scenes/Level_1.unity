@@ -2145,7 +2145,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29132
+  m_Name: pb_Mesh35444
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3442,8 +3442,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 4, z: 2}
-  m_Center: {x: 0, y: 2, z: 17}
+  m_Size: {x: 10, y: 4, z: 3}
+  m_Center: {x: 0, y: 2, z: 16.5}
 --- !u!65 &1150200127
 BoxCollider:
   m_ObjectHideFlags: 0

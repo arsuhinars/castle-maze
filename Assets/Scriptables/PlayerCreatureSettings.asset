@@ -24,4 +24,4 @@ MonoBehaviour:
   rotationMaxSpeed: 540
   slideThreshold: 0.1
   slideScale: 0.1
-  rigidbodyImpactScale: 6
+  rigidbodyImpactScale: 12
