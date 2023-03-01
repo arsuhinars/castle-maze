@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -98,6 +99,15 @@ public class GameManager : MonoBehaviour
     public void LeaveGame()
     {
         Application.Quit();
+    }
+
+    /// <summary>
+    /// Метод смены текущего уровня
+    /// </summary>
+    /// <param name="levelNumber">Номер уровня, начинающийся с 0</param>
+    public void ChangeLevel(int levelNumber)
+    {
+        SceneManager.LoadScene(m_settings.levelsScenes[levelNumber]);
     }
 
     public PlayerAbility GetAbilityByName(string name) => m_abilities[name];

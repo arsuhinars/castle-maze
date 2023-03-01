@@ -5,4 +5,5 @@ public class GameSettings : ScriptableObject
 {
     public int initialLivesCount = 1;
     public PlayerAbility[] playerAbilities;
+    public string[] levelsScenes;
 }
