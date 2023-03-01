@@ -169,7 +169,7 @@ public class CreatureEntity : MonoBehaviour
             )
         {
             // Находим текущий угол направления движения
-            rotAngle = Mathf.Atan2(m_moveVector.x, m_moveVector.y) * Mathf.Rad2Deg;
+            rotAngle = Utils.RotationFromVector2(m_moveVector);
             m_lastMoveAngle = rotAngle;
         }
 
