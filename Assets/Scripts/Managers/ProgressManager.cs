@@ -4,24 +4,26 @@ using UnityEngine;
 public class ProgressManager : MonoBehaviour
 {
     private const string CURRENT_LEVEL_KEY = "CurrentLevel";
-    private const string CURRENT_STAGE_KEY = "CurrentStage";
     private const string ABILITIES_KEY = "Abilitites";
 
     public static ProgressManager Instance { get; private set; } = null;
 
     public int CurrentLevel
     {
-        get => PlayerPrefs.GetInt(CURRENT_LEVEL_KEY, 0);
-        set => PlayerPrefs.SetInt(CURRENT_LEVEL_KEY, value);
+        //get => PlayerPrefs.GetInt(CURRENT_LEVEL_KEY, 0);
+        //set => PlayerPrefs.SetInt(CURRENT_LEVEL_KEY, value);
+
+        get => m_currLevel;
+        set => m_currLevel = value;
     }
 
     public string[] Abilities
     {
         get
         {
-            m_abilities ??= JsonUtility.FromJson<StringArrayWrapper>(
-                PlayerPrefs.GetString(ABILITIES_KEY, @"{""array"":[]}")
-            ).array;
+            //m_abilities ??= JsonUtility.FromJson<StringArrayWrapper>(
+            //    PlayerPrefs.GetString(ABILITIES_KEY, @"{""array"":[]}")
+            //).array;
 
             return m_abilities;
         }
@@ -29,10 +31,10 @@ public class ProgressManager : MonoBehaviour
         {
             m_abilities = value;
 
-            PlayerPrefs.SetString(
-                ABILITIES_KEY,
-                JsonUtility.ToJson(new StringArrayWrapper() { array = value })
-            );
+            //PlayerPrefs.SetString(
+            //    ABILITIES_KEY,
+            //    JsonUtility.ToJson(new StringArrayWrapper() { array = value })
+            //);
         }
     }
 
@@ -42,7 +44,8 @@ public class ProgressManager : MonoBehaviour
         public string[] array;
     }
 
-    private string[] m_abilities = null;
+    private static int m_currLevel = 0;
+    private static string[] m_abilities = new string[0];
 
     private void Awake()
     {

@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
     /// <param name="levelNumber">Номер уровня, начинающийся с 0</param>
     public void ChangeLevel(int levelNumber)
     {
+        ProgressManager.Instance.CurrentLevel = levelNumber;
         SceneManager.LoadScene(m_settings.levelsScenes[levelNumber]);
     }
 

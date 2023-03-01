@@ -27,6 +27,6 @@ public class LevelEndView : UIView
         var currLevel = ProgressManager.Instance.CurrentLevel;
         var levelCount = GameManager.Instance.Settings.levelsScenes.Length;
 
-        m_nextLevelButton.interactable = currLevel < levelCount;
+        m_nextLevelButton.interactable = currLevel + 1 < levelCount;
     }
 }
