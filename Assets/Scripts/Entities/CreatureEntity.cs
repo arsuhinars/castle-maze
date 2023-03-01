@@ -21,17 +21,6 @@ public class CreatureEntity : MonoBehaviour
         set => m_moveVector = value;
     }
 
-    public float Rotation
-    {
-        get => m_currRot;
-        set
-        {
-            m_lastMoveAngle = value;
-            m_currRot = value;
-            m_rotVel = 0.0f;
-        }
-    }
-
     /// <summary>
     /// Угол на который направлен взгляд сущности.
     /// Если равен <c>null</c>, то сущность смотрит по
@@ -145,11 +134,11 @@ public class CreatureEntity : MonoBehaviour
         // Если игрок на земле
         if (!m_charController.isGrounded)
         {
+            // Учитываем ускорение свободного падения
             m_velocity.y += Physics.gravity.y * m_settings.gravityScale * Time.deltaTime;
         }
 
-        // Учитываем ускорение свободного падения и сопротивление движению
-        
+        // Вертикальное сопротивление движению
         m_velocity.y -= m_settings.verticalDrag * m_velocity.y * Time.deltaTime;
 
         // Применяем скорость к контроллеру
@@ -158,12 +147,8 @@ public class CreatureEntity : MonoBehaviour
 
         float rotAngle = m_lastMoveAngle;
 
-        if (m_targetRot != null)
-        {
-            rotAngle = (float)m_targetRot;
-        }
-        // Если вектор движения не близок к нулю и игрок находится на земле
-        else if (m_charController.isGrounded && (
+        // Если вектор движения не нулевой и игрок находится на земле
+        if (m_charController.isGrounded && (
             !Mathf.Approximately(m_moveVector.x, 0.0f) ||
             !Mathf.Approximately(m_moveVector.y, 0.0f))
             )
@@ -171,6 +156,12 @@ public class CreatureEntity : MonoBehaviour
             // Находим текущий угол направления движения
             rotAngle = Utils.RotationFromVector2(m_moveVector);
             m_lastMoveAngle = rotAngle;
+        }
+
+        // Если указан целевой угол поворота
+        if (m_targetRot != null)
+        {
+            rotAngle = (float)m_targetRot;
         }
 
         // Находим новый угол вращения

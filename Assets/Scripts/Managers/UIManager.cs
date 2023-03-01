@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     private UIView m_activeView = null;
     private Dictionary<string, UIView> m_viewsByName;
 
-    public void ToggleView(string name)
+    public void SetView(string name)
     {
         if (m_activeView != null)
         {
@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         m_activeView.Show();
     }
 
-    public UIView GetView(string name) => m_viewsByName[name];
+    public UIView GetViewByName(string name) => m_viewsByName[name];
 
     private void Awake()
     {

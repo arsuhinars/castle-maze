@@ -14,7 +14,7 @@ public class GameUIController : MonoBehaviour
 
     private void OnGameStart()
     {
-        UIManager.Instance.ToggleView(Defines.IN_GAME_VIEW);
+        UIManager.Instance.SetView(Defines.IN_GAME_VIEW);
     }
 
     private void OnGameEnd(GameManager.GameEndReason reason)
@@ -22,21 +22,21 @@ public class GameUIController : MonoBehaviour
         switch (reason)
         {
             case GameManager.GameEndReason.LevelEnds:
-                UIManager.Instance.ToggleView(Defines.LEVEL_END_VIEW);
+                UIManager.Instance.SetView(Defines.LEVEL_END_VIEW);
                 break;
             case GameManager.GameEndReason.PlayerDied:
-                UIManager.Instance.ToggleView(Defines.GAME_END_VIEW);
+                UIManager.Instance.SetView(Defines.GAME_END_VIEW);
                 break;
         }
     }
 
     private void OnGamePause()
     {
-        UIManager.Instance.ToggleView(Defines.PAUSE_VIEW);
+        UIManager.Instance.SetView(Defines.PAUSE_VIEW);
     }
 
     private void OnGameResume()
     {
-        UIManager.Instance.ToggleView(Defines.IN_GAME_VIEW);
+        UIManager.Instance.SetView(Defines.IN_GAME_VIEW);
     }
 }

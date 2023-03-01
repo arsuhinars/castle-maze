@@ -119,9 +119,9 @@ public class PlayerEntity : CreatureEntity
             m_abilityObject = null;
         }
 
-        if (m_activeAbility == null)
-            return;
-
-        m_abilityObject = Instantiate(m_activeAbility.prefab, transform);
+        if (m_activeAbility != null)
+        {
+            m_abilityObject = Instantiate(m_activeAbility.prefab, transform);
+        }
     }
 }

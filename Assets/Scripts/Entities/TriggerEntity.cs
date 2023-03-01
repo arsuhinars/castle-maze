@@ -59,6 +59,7 @@ public class TriggerEntity : MonoBehaviour
         if (m_settings.resetOnGameRestart)
         {
             m_enterTriggerFlag = false;
+            m_exitTriggerFlag = false;
         }
     }
 }

@@ -30,7 +30,7 @@ public class AbilityTelekinesis : MonoBehaviour
         m_camera = GameManager.Instance.CameraController.TargetCamera;
         m_player = GameManager.Instance.PlayerEntity;
 
-        var inGameView = UIManager.Instance.GetView(
+        var inGameView = UIManager.Instance.GetViewByName(
             Defines.IN_GAME_VIEW
         ) as InGameView;
 
