@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b416bcfdca44c48b45e184757b109e, type: 3}
-  m_Name: TelekinesisSettings
+  m_Script: {fileID: 11500000, guid: 077e7ef114aa15d4fbd28d915debe61d, type: 3}
+  m_Name: MaterializeSettings
   m_EditorClassIdentifier: 
-  pickableEntityMask:
-    serializedVersion: 2
-    m_Bits: 64
   groundMask:
     serializedVersion: 2
     m_Bits: 128
-  entityMoveTime: 0.1
-  entitySpacing: 0
+  bridgePrefab: {fileID: 2923273083253649669, guid: e3631f50ab4b44340ae268676dc9866a, type: 3}
+  bridgeMoveTime: 0.1

@@ -20,9 +20,10 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 735acc7d15649fb4e87a7aa7ed3fb059, type: 3}
   - name: Materialize
     displayName: "\u041C\u0430\u0442\u0435\u0440\u0438\u0437\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F"
-    prefab: {fileID: 0}
+    prefab: {fileID: 6111270693211556620, guid: db5a09281c989d844960ad9e714ab999, type: 3}
     icon: {fileID: 21300000, guid: 501359e01ea4687449ae0d66cd1c87fa, type: 3}
   - name: Spirit
     displayName: "\u0414\u0443\u0445"
     prefab: {fileID: 0}
     icon: {fileID: 21300000, guid: 81711e00c5cc2b344bb6e59eaa18bedc, type: 3}
+  levelsScenes: []
