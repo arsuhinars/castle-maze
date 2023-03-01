@@ -7,8 +7,11 @@ public class TriggerEntity : MonoBehaviour
     private TriggerSettings m_settings;
     [SerializeField]
     private UnityEvent m_onTriggerEnter = new();
+    [SerializeField]
+    private UnityEvent m_onTriggerExit = new();
 
-    private bool m_triggeredFlag = false;
+    private bool m_enterTriggerFlag = false;
+    private bool m_exitTriggerFlag = false;
 
     private void Start()
     {
@@ -25,15 +28,29 @@ public class TriggerEntity : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_triggeredFlag && m_settings.triggerOnce)
+        if (m_enterTriggerFlag && m_settings.triggerOnce)
         {
             return;
         }
 
         if (other.CompareTag(m_settings.targetTag))
         {
-            m_triggeredFlag = true;
+            m_enterTriggerFlag = true;
             m_onTriggerEnter.Invoke();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (m_exitTriggerFlag && m_settings.triggerOnce)
+        {
+            return;
+        }
+
+        if (other.CompareTag(m_settings.targetTag))
+        {
+            m_exitTriggerFlag = true;
+            m_onTriggerExit.Invoke();
         }
     }
 
@@ -41,7 +58,7 @@ public class TriggerEntity : MonoBehaviour
     {
         if (m_settings.resetOnGameRestart)
         {
-            m_triggeredFlag = false;
+            m_enterTriggerFlag = false;
         }
     }
 }
