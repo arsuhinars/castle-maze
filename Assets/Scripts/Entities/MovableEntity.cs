@@ -42,7 +42,7 @@ public class MovableEntity : MonoBehaviour
         {
             m_leanState = true;
             m_model.transform.localPosition = m_settings.moveOffset;
-            m_model.transform.rotation = Quaternion.AngleAxis(
+            m_model.transform.localRotation = Quaternion.AngleAxis(
                 m_settings.rotationAngle,
                 m_settings.rotationAxis
             );
@@ -88,7 +88,7 @@ public class MovableEntity : MonoBehaviour
         m_moveLean.setEase(m_settings.easeType);
         m_moveLean.setLoopOnce();
 
-        m_model.rotation = 
+        m_model.localRotation = 
             isForward ?
             Quaternion.identity :
             Quaternion.AngleAxis(
