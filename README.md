@@ -1,30 +1,27 @@
 # Castle Maze
-Игра головоломка, в которой вам понадобится решать загадки, используя инструмент
-любого мага - волшебную палочку! На протяжении игры вы будете получать новые
-заклинания для палочки. Каждый последующий уровень будет приносить новые
-механики и комбинировать их со старыми. Также у игрока имеется ограниченное
-количество жизней. Если игрок истратит все жизни, то его вернет в начало уровня.
-На данный момент в игре доступно 3 уровня.
+Game where you have to solve puzzles using instrument of any mage - magic stick!
+During the game you will get new spells for it. Every next level will bring new
+mechanics and combine it with old ones. Besides player has limited amount of lives.
+If there are not remained lives, player will be returned to start of the level.
+Currently 3 levels are available.
 
-Игра также доступна на [itch.io](https://arsuhinars.itch.io/castle-maze)
+Game is also available on [itch.io](https://arsuhinars.itch.io/castle-maze)
 
-## Доступные заклинания
-- ### Заклинание телекинеза
-  Позволяет перемещать небольшие предметы на расстоянии.
-- ### Заклинание материализации
-  С его помощью вы сможете создавать магические мосты.
-- ### Заклинание духа
-  Это заклинание превратит вас в духа и позволит проходить через магически
-  запечатанные преграды.
+## Available spells
+- ### Telekinesis
+  It let to move small objects on distance.
+- ### Materialize
+  With it you will be able to create magical bridges.
+- ### Spirit spell
+  This spell turns you to a spirit and allows to go trough sealed obstacles.
 
-## Управление
-- __W, A, S, D__ - перемещение персонажа
-- __Пробел__ - прыжок
-- __ЛКМ__ - использование текущего заклинания
-- __Escape__ - пауза
+## Controls
+- __W, A, S, D__ - character moving
+- __Пробел__ - jump
+- __ЛКМ__ - using current spell
+- __Escape__ - pause
 
-## Используемые ассеты
+## Assets
 - [Kenney Playformer Kit​](https://kenney.nl/assets/platformer-kit)
 - [Fey Gnome​​](https://maximumdamage.itch.io/fey-gnome)
 - [​LeanTween​](https://maximumdamage.itch.io/fey-gnome)
-​
