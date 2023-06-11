@@ -17,8 +17,8 @@ Game is also available on [itch.io](https://arsuhinars.itch.io/castle-maze)
 
 ## Controls
 - __W, A, S, D__ - character moving
-- __Пробел__ - jump
-- __ЛКМ__ - using current spell
+- __Space__ - jump
+- __Left mouse button__ - using current spell
 - __Escape__ - pause
 
 ## Assets
